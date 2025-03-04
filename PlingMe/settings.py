@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'PingMe.urls'
+ROOT_URLCONF = 'PlingMe.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PingMe.wsgi.application'
+WSGI_APPLICATION = 'PlingMe.wsgi.application'
 
 
 # Database
