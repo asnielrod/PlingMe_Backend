@@ -244,13 +244,30 @@
           </div>
         </li>
         <li class="profile-nav onhover-dropdown pe-0 py-0">
-          <div class="d-flex align-items-center profile-media"><img class="b-r-25" src="{% static 'assets/images/dashboard/profile.png' %}" alt="">
-            <div class="flex-grow-1 user"><span>Helen Walter</span>
-              <p class="mb-0 font-nunito">Admin 
+          <div class="d-flex align-items-center profile-media">
+            {% if current_user.avatar %}
+            <img class="b-r-25" src="{{ current_user.avatar.url }}" style="max-width: 40px;"   alt="">
+            {% else %}
+            <img class="b-r-25" src="{% static 'assets/images/dashboard/profile.png' %}" alt="">
+            {% endif %}
+            {% if current_user.first_name %}
+            <div class="flex-grow-1 user"><span>{{ current_user.first_name }}</span>
+            {% else %}
+            <div class="flex-grow-1 user"><span>Name</span>
+            {% endif %}
+            {% if current_user.role %}
+            <p class="mb-0 font-nunito">{{ current_user.get_role_display }} 
+              <svg>
+                <use href="{% static 'assets/svg/icon-sprite.svg' %}#header-arrow-down"></use>
+              </svg>
+            </p>
+            {% else %}
+              <p class="mb-0 font-nunito">Role
                 <svg>
                   <use href="{% static 'assets/svg/icon-sprite.svg' %}#header-arrow-down"></use>
                 </svg>
               </p>
+            {% endif %}
             </div>
           </div>
           <ul class="profile-dropdown onhover-show-div">

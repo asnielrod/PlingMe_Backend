@@ -7,3 +7,12 @@ def lock_screen_processor(request):
             return {'redirect_to_lock_screen': True}
     return {}
 
+
+
+def current_user(request):
+    """
+    Context processor para agregar el usuario actual a todas las plantillas.
+    """
+    return {
+        'current_user': request.user  
+    }

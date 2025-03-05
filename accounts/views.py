@@ -66,7 +66,6 @@ def lock_screen(request):
 
 
 
-
 @login_required
 def unlock_screen(request):
     request.user.refresh_from_db()  
