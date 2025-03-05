@@ -1,5 +1,12 @@
 {% load static %}
 
+{% if redirect_to_lock_screen %}
+    <script>
+        window.location.href = "{% url 'lock_screen' %}";
+    </script>
+{% endif %}
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,7 +82,7 @@
     <script src="{% static 'assets/js/vector-map/jquery-jvectormap-2.0.2.min.js' %}"></script>
     <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-world-mill-en.js' %}"></script>
     <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-us-aea-en.js' %}"></script>
-    <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-uk-mill-en.j' %}'"></script>
+    <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-uk-mill-en.js' %}'"></script>
     <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-au-mill.js' %}"></script>
     <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-chicago-mill-en.js' %}"></script>
     <script src="{% static 'assets/js/vector-map/map/jquery-jvectormap-in-mill.js' %}"></script>
