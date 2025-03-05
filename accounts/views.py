@@ -15,3 +15,7 @@ def login(request):
 
 def unlock(request):
     return render(request, 'unlock.html')
+
+
+def verify_code(request):
+    return render(request, 'verify_code.html')

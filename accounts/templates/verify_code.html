@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+  <!-- loader starts-->
+  <div class="loader-wrapper">
+    <div class="theme-loader">
+      <div class="loader-p"></div>
+    </div>
+  </div>
+  <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+  <div class="page-wrapper">
+    <div class="container-fluid p-0">
+      <div class="authentication-main mt-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="login-card login-dark">
+              <div>
+                <div>
+                  <a class="logo" href="{% url 'index' %}">
+                    <img class="img-fluid for-light" src="{% static 'assets/images/logo/logo.png' %}" alt="looginpage">
+                    <img class="img-fluid for-dark" src="{% static 'assets/images/logo/logo_dark.png' %}" alt="looginpage">
+                  </a>
+                </div>
+                <div class="login-main">
+                  <form class="theme-form">
+                    <h4>Verify Code</h4>
+                    <div class="form-group">
+                      <label class="col-form-label mb-4">Enter your 4 digits code</label>
+                      <div class="d-flex justify-content-between" style="gap: 8px;">
+                        <input type="text" maxlength="1" class="form-control code-input" required>
+                        <input type="text" maxlength="1" class="form-control code-input" required>
+                        <input type="text" maxlength="1" class="form-control code-input" required>
+                        <input type="text" maxlength="1" class="form-control code-input" required>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                      <button class="btn btn-primary btn-block w-100 mt-1" type="submit">Submit</button>
+                    </div>
+                    <p class="mt-4 mb-0">You have not received your code?<a class="ms-2" href="login.html">Send Again</a></p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'assets/js/icons/feather-icon/feather.min.js' %}"></script>
+      <script src="{% static 'assets/js/icons/feather-icon/feather-icon.js' %}"></script>
+      <script src="{% static 'assets/js/config.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+      <style>
+        .code-input {
+          text-align: center;
+          font-size: 18px;
+          font-weight: bold;
+          border: 2px solid #666;
+          width: 50px;
+          height: 50px;
+          background-color: #f8f9fa;
+          transition: border-color 0.3s;
+        }
+
+        .code-input:focus {
+          border-color: #007bff;
+          outline: none;
+        }
+      </style>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const inputs = document.querySelectorAll('.code-input');
+
+          inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+              if (e.inputType !== 'deleteContentBackward' && input.value) {
+                const nextInput = inputs[index + 1];
+                if (nextInput) {
+                  nextInput.focus();
+                }
+              }
+            });
+
+            input.addEventListener('keydown', (e) => {
+              if (e.key === 'Backspace' && !input.value) {
+                const prevInput = inputs[index - 1];
+                if (prevInput) {
+                  prevInput.focus();
+                }
+              }
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</body>
+{% endblock %}
