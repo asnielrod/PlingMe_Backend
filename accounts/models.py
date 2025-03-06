@@ -40,6 +40,7 @@ class UserProfile(AbstractUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    bio = models.TextField(max_length=200, null=True, blank=True)
 
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=STAFF)
     language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, default='en')

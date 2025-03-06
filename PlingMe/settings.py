@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'app',
     'company',
+    'plingers',
 ]
 
 MIDDLEWARE = [

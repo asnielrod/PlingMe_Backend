@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+
+def company_profile(request):
+    return render(request, 'company_profile.html')

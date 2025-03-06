@@ -49,3 +49,16 @@ class LoginForm(forms.Form):
     )
         
     
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'email', 'avatar', 'language', 'bio']
+        widgets = {
+            'language': forms.Select(choices=UserProfile.LANGUAGE_CHOICES, attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+        }

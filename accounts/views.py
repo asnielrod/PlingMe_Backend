@@ -5,6 +5,8 @@ from .models import UserProfile
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from .forms import UserProfileForm
+from django.contrib import messages
 
 
 
@@ -88,8 +90,20 @@ def unlock_screen(request):
 
 
 
+@login_required
 def user_profile(request):
-    return render(request, 'user_profile.html')
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('user_profile')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserProfileForm(instance=request.user)
+
+    return render(request, 'user_profile.html', {'form': form})
 
 
 def verify_code(request):
