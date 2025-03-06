@@ -12,4 +12,5 @@ urlpatterns = [
     path('unlock-screen/', views.unlock_screen, name='unlock_screen'),
     path('verify-code/', views.verify_code, name='verify_code'),
     path('logout/', views.logout, name='logout'),
+    path('user-profile/', views.user_profile, name='user_profile'),
 ]

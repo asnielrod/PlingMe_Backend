@@ -88,6 +88,9 @@ def unlock_screen(request):
 
 
 
+def user_profile(request):
+    return render(request, 'user_profile.html')
+
 
 def verify_code(request):
     return render(request, 'verify_code.html')
