@@ -1,0 +1,45 @@
+/* Espaciado y estilo base */
+.sidebar-list {
+    margin: 8px 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover */
+.sidebar-list:hover {
+    background-color: #f5f5f5;
+}
+
+/* Enlace dentro del sidebar */
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Activo */
+.sidebar-list.active {
+    background-color: #007bff;
+}
+
+.sidebar-list.active .sidebar-title {
+    color: white;
+}
+
+/* Iconos */
+.sidebar-list .stroke-icon,
+.sidebar-list .fill-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* Iconos activos */
+.sidebar-list.active .stroke-icon,
+.sidebar-list.active .fill-icon {
+    fill: white;
+}

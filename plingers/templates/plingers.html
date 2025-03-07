@@ -1,1 +1,362 @@
-<h1>Plingers</h1>
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+<body> 
+    <!-- loader starts-->
+    <div class="loader-wrapper">
+      <div class="theme-loader">    
+        <div class="loader-p"></div>
+      </div>
+    </div>
+    <!-- loader ends-->
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+      <!-- Page Header Start-->
+    
+      {% include 'includes/navbar.html' %}
+
+      <!-- Page Header Ends-->
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+      
+        {% include 'includes/sidebar.html' %}
+
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+          <div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-xl-4 col-sm-7 box-col-3">
+                  <h3>Plingers</h3>
+                </div>
+                <div class="col-5 d-none d-xl-block">
+                </div>
+                <div class="col-xl-3 col-sm-5 box-col-4">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="index.html">
+                        <svg class="stroke-icon">
+                          <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">Plingers</li>
+                    <li class="breadcrumb-item active">Plingers</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Lista de clientes -->
+              <div class="col-xxl-8 col-xl-8 box-col-8">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                          <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#inspections">Plingers <span class="badge bg-primary">24</span></a></li>
+                          <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#emails">Ping Requests <span class="badge bg-primary">20</span></a></li>
+                          <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#notes">Notes <span class="badge bg-primary">16</span></a></li>
+                          <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#files">Touchpoints <span class="badge bg-primary">12</span></a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <button class="btn btn-primary">Add Plinger</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="inspections">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Info <i class="fa fa-sort"></i></th>
+                                <th>Request<i class="fa fa-sort"></i></th>
+                                <th>Status <i class="fa fa-sort"></i></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="client-row active" onclick="showClientDetails('ralph')">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <img src="../assets/images/job-search/1.jpg" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
+                                    <div class="ms-3">
+                                      <h6>2715 Ash Dr, San Jose</h6>
+                                      <p class="text-muted mb-0">12/03/2025, 10:30</p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>Roof Health Check</div>
+                                  <div>Leak Detection Inspection</div>
+                                  <span class="badge bg-info">+2</span>
+                                </td>
+                                <td><span class="badge bg-success">Completado</span></td>
+                              </tr>
+                              <tr class="client-row" onclick="showClientDetails('maria')">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <img src="../assets/images/job-search/2.jpg" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
+                                    <div class="ms-3">
+                                      <h6>1901 Thornridge Cir, Shiloh</h6>
+                                      <p class="text-muted mb-0">12/03/2025, 10:30</p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>Commercial Inspection</div>
+                                </td>
+                                <td><span class="badge bg-warning">Próximo</span></td>
+                              </tr>
+                              <tr class="client-row" onclick="showClientDetails('john')">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <img src="../assets/images/job-search/3.jpg" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
+                                    <div class="ms-3">
+                                      <h6>6391 Elgin St, Celina</h6>
+                                      <p class="text-muted mb-0">12/03/2025, 10:30</p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>Roof Safety Check</div>
+                                </td>
+                                <td><span class="badge bg-danger">Cancelado</span></td>
+                              </tr>
+                              <tr class="client-row" onclick="showClientDetails('sarah')">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <img src="../assets/images/job-search/4.jpg" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
+                                    <div class="ms-3">
+                                      <h6>2118 Thornridge Cir, Syracuse</h6>
+                                      <p class="text-muted mb-0">12/03/2025, 10:30</p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>Roof Maintenance Review</div>
+                                  <div>Smart Home Check</div>
+                                  <span class="badge bg-info">+1</span>
+                                </td>
+                                <td><span class="badge bg-secondary">En progreso</span></td>
+                              </tr>
+                              <tr class="client-row" onclick="showClientDetails('michael')">
+                                <td>
+                                  <div class="d-flex align-items-center">
+                                    <img src="../assets/images/job-search/5.jpg" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
+                                    <div class="ms-3">
+                                      <h6>8502 Preston Rd, Inglewood</h6>
+                                      <p class="text-muted mb-0">12/03/2025, 10:30</p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>Roof Condition Assessment</div>
+                                </td>
+                                <td><span class="badge bg-warning">Próximo</span></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="emails">
+                        <p>Contenido de emails aquí...</p>
+                      </div>
+                      <div class="tab-pane" id="notes">
+                        <p>Contenido de notas aquí...</p>
+                      </div>
+                      <div class="tab-pane" id="files">
+                        <p>Contenido de archivos aquí...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detalles del cliente -->
+              <div class="col-xxl-4 col-xl-4 box-col-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 id="client-name">Ralph Edwards</h4>
+                    {#<button class="btn btn-outline-primary btn-sm">Repetir cliente</button>#}
+                  </div>
+                  <div class="card-body">
+                    <div class="client-details">
+                      <h5 class="mb-3">Información de Contacto</h5>
+                      <div class="row mb-2">
+                        <div class="col-3">
+                          <i class="fa fa-envelope"></i> Email:
+                        </div>
+                        <div class="col-9" id="client-email">
+                          hi@ralphed.co
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-3">
+                          <i class="fa fa-phone"></i> Teléfono:
+                        </div>
+                        <div class="col-9" id="client-phone">
+                          (307) 555-0133
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-3">
+                          <i class="fa fa-linkedin"></i> LinkedIn:
+                        </div>
+                        <div class="col-9" id="client-linkedin">
+                          Ralph Edwards
+                        </div>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-3">
+                          <i class="fa fa-map-marker"></i> Ubicación:
+                        </div>
+                        <div class="col-9" id="client-location">
+                          Añadir ubicación...
+                        </div>
+                      </div>
+
+                      <h5 class="mb-3">Información de Trabajo</h5>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          Total trabajos:
+                        </div>
+                        <div class="col-7" id="client-total-jobs">
+                          17
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          Primer contacto:
+                        </div>
+                        <div class="col-7" id="client-first-contact">
+                          Feb 28, 2020
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          Último contacto:
+                        </div>
+                        <div class="col-7" id="client-last-contact">
+                          Mar 21, 2023
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          Fuente de referencia:
+                        </div>
+                        <div class="col-7" id="client-referral">
+                          Agente inmobiliario
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          ID de registro:
+                        </div>
+                        <div class="col-7" id="client-record-id">
+                          Client-000517
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+        <!-- footer start-->
+       
+        {% include 'includes/footer.html' %}
+
+        <!-- footer end-->
+      </div>
+    </div>
+
+    <!-- Script para cambiar los detalles del cliente cuando se hace clic -->
+    <script>
+      function showClientDetails(clientId) {
+        // Eliminar clase activa de todas las filas
+        document.querySelectorAll('.client-row').forEach(row => {
+          row.classList.remove('active');
+        });
+        
+        // Añadir clase activa a la fila seleccionada
+        event.currentTarget.classList.add('active');
+        
+        // Actualizar información según el cliente seleccionado
+        if (clientId === 'ralph') {
+          document.getElementById('client-name').textContent = 'Ralph Edwards';
+          document.getElementById('client-email').textContent = 'hi@ralphed.co';
+          document.getElementById('client-phone').textContent = '(307) 555-0133';
+          document.getElementById('client-linkedin').textContent = 'Ralph Edwards';
+          document.getElementById('client-location').textContent = 'Añadir ubicación...';
+          document.getElementById('client-total-jobs').textContent = '17';
+          document.getElementById('client-first-contact').textContent = 'Feb 28, 2020';
+          document.getElementById('client-last-contact').textContent = 'Mar 21, 2023';
+          document.getElementById('client-referral').textContent = 'Agente inmobiliario';
+          document.getElementById('client-record-id').textContent = 'Client-000517';
+        }
+        else if (clientId === 'maria') {
+          document.getElementById('client-name').textContent = 'Maria Rodriguez';
+          document.getElementById('client-email').textContent = 'maria@example.com';
+          document.getElementById('client-phone').textContent = '(408) 555-7890';
+          document.getElementById('client-linkedin').textContent = 'Maria Rodriguez';
+          document.getElementById('client-location').textContent = 'San Francisco, CA';
+          document.getElementById('client-total-jobs').textContent = '8';
+          document.getElementById('client-first-contact').textContent = 'Jun 15, 2021';
+          document.getElementById('client-last-contact').textContent = 'Jan 10, 2025';
+          document.getElementById('client-referral').textContent = 'Recomendación';
+          document.getElementById('client-record-id').textContent = 'Client-000623';
+        }
+        else if (clientId === 'john') {
+          document.getElementById('client-name').textContent = 'John Smith';
+          document.getElementById('client-email').textContent = 'john.smith@domain.com';
+          document.getElementById('client-phone').textContent = '(212) 555-4321';
+          document.getElementById('client-linkedin').textContent = 'John Smith';
+          document.getElementById('client-location').textContent = 'New York, NY';
+          document.getElementById('client-total-jobs').textContent = '24';
+          document.getElementById('client-first-contact').textContent = 'Oct 05, 2019';
+          document.getElementById('client-last-contact').textContent = 'Feb 17, 2025';
+          document.getElementById('client-referral').textContent = 'Sitio web';
+          document.getElementById('client-record-id').textContent = 'Client-000341';
+        }
+        else if (clientId === 'sarah') {
+          document.getElementById('client-name').textContent = 'Sarah Johnson';
+          document.getElementById('client-email').textContent = 'sarah.j@company.org';
+          document.getElementById('client-phone').textContent = '(650) 555-1234';
+          document.getElementById('client-linkedin').textContent = 'Sarah Johnson';
+          document.getElementById('client-location').textContent = 'Austin, TX';
+          document.getElementById('client-total-jobs').textContent = '11';
+          document.getElementById('client-first-contact').textContent = 'Aug 22, 2022';
+          document.getElementById('client-last-contact').textContent = 'Dec 05, 2024';
+          document.getElementById('client-referral').textContent = 'Google';
+          document.getElementById('client-record-id').textContent = 'Client-000782';
+        }
+        else if (clientId === 'michael') {
+          document.getElementById('client-name').textContent = 'Michael Brown';
+          document.getElementById('client-email').textContent = 'mbrown@email.net';
+          document.getElementById('client-phone').textContent = '(415) 555-9876';
+          document.getElementById('client-linkedin').textContent = 'Michael Brown';
+          document.getElementById('client-location').textContent = 'Chicago, IL';
+          document.getElementById('client-total-jobs').textContent = '5';
+          document.getElementById('client-first-contact').textContent = 'Mar 14, 2023';
+          document.getElementById('client-last-contact').textContent = 'Jan 30, 2025';
+          document.getElementById('client-referral').textContent = 'Publicidad';
+          document.getElementById('client-record-id').textContent = 'Client-000895';
+        }
+      }
+    </script>
+
+{% endblock %}

@@ -1,4 +1,6 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
+
 <div class="sidebar-wrapper" data-layout="stroke-svg">
     <div>
         <div class="logo-wrapper">
@@ -12,18 +14,18 @@
                 </svg>
             </div>
         </div>
-        
+
         <div class="logo-icon-wrapper">
             <a href="{% url 'index' %}">
                 <img class="img-fluid" src="{% static 'assets/images/logo/logo-icon.png' %}" alt="">
             </a>
         </div>
-        
+
         <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow">
                 <i data-feather="arrow-left"></i>
             </div>
-            
+
             <div id="sidebar-menu">
                 <ul class="sidebar-links" id="simple-bar">
                     <li class="back-btn">
@@ -35,80 +37,75 @@
                             <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
                         </div>
                     </li>
-                    
+
                     <li class="pin-title sidebar-main-title">
                         <div>
                             <h6>Pinned</h6>
                         </div>
                     </li>
-                    
+
+                    <li class="sidebar-list {% if request.resolver_match.url_name == '/' %}active{% endif %}">
+                        <a class="sidebar-title link-nav" href="{% url 'index' %}">
+                            <svg class="stroke-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-home"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-home"></use>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-list {% if request.resolver_match.url_name == '/plingers/' %}active{% endif %}">
+                        <a class="sidebar-title link-nav" href="{% url 'plingers' %}">
+                            <svg class="stroke-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-user"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-user"></use>
+                            </svg>
+                            <span>Plingers</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-list {% if request.resolver_match.url_name == 'pings' %}active{% endif %}">
+                        <a class="sidebar-title link-nav" href="{% url 'pings' %}">
+                            <svg class="stroke-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-chat"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-chat"></use>
+                            </svg>
+                            <span>Pings</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-list">
-                      <i class="fa fa-thumb-tack"></i>
-                      <a class="sidebar-link sidebar-title link-nav" href="{% url 'index' %}">
-                          <svg class="stroke-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-home"></use>
-                          </svg>
-                          <svg class="fill-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-home"></use>
-                          </svg>
-                          <span>Dashboard</span>
-                      </a>
-                  </li>
-                    
+                        <a class="sidebar-title link-nav" href="file-manager.html">
+                            <svg class="stroke-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-widget"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-widget"></use>
+                            </svg>
+                            <span>Plugins</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-list">
-                      <i class="fa fa-thumb-tack"></i>
-                      <a class="sidebar-link sidebar-title link-nav" href="{% url 'plingers' %}">
-                          <svg class="stroke-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-user"></use>
-                          </svg>
-                          <svg class="fill-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-user"></use>
-                          </svg>
-                          <span>Plingers</span>
-                      </a>
-                  </li>
-                    
-                    <li class="sidebar-list">
-                      <i class="fa fa-thumb-tack"></i>
-                      <a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                          <svg class="stroke-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-chat"></use>
-                          </svg>
-                          <svg class="fill-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-chat"></use>
-                          </svg>
-                          <span>Pings</span>
-                      </a>
-                  </li>
-                    
-                    <li class="sidebar-list">
-                      <i class="fa fa-thumb-tack"></i>
-                      <a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                          <svg class="stroke-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-widget"></use>
-                          </svg>
-                          <svg class="fill-icon">
-                              <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-widget"></use>
-                          </svg>
-                          <span>Plugins</span>
-                      </a>
-                  </li>
-                    
-                    <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+                        <a class="sidebar-title link-nav" href="file-manager.html">
                             <svg class="stroke-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-animation"></use>
                             </svg>
                             <svg class="fill-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-animation"></use>
                             </svg>
-                            <span>Ping Categories</span>
+                            <span>Ping Campaigns</span>
                         </a>
                     </li>
                 </ul>
             </div>
-            
+
             <div class="right-arrow" id="right-arrow">
                 <i data-feather="arrow-right"></i>
             </div>
