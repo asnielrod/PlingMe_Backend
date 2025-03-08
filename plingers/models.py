@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Plinger(models.Model):
     CONTACT_METHODS = [
@@ -23,6 +24,7 @@ class Plinger(models.Model):
         ('custom', 'Personalizado'),
     ]
 
+    company = models.ForeignKey('company.Company', on_delete=models.CASCADE, related_name='plingers')
     name = models.CharField(max_length=100)
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
@@ -33,17 +35,14 @@ class Plinger(models.Model):
     plingme_when = models.JSONField(default=list)  # Ej: ["promos", "new_products"]
     plingme_freq = models.CharField(max_length=20, choices=CONTACT_FREQUENCY, default='once')
 
-    notes = models.TextField(blank=True, null=True)  # Por si quieres guardar alguna nota interna.
+    notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=(
-                    models.Q(email__isnull=False) |
-                    models.Q(phone__isnull=False)
-                ),
+                check=(models.Q(email__isnull=False) | models.Q(phone__isnull=False)),
                 name='require_email_or_phone'
             )
         ]
