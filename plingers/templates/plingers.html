@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+
 {% block content %}
+
+<style>
+    .client-row {
+        cursor: pointer;
+    }
+    .client-row:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+    .client-row.active {
+        background-color: rgba(0, 123, 255, 0.2);
+    }
+</style>
+
+
 <div class="page-wrapper compact-wrapper" id="pageWrapper">
     {% include 'includes/navbar.html' %}  <!-- Navbar -->
 
@@ -27,7 +43,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4>Lista de Plingers</h4>
+                                    <h4>Plingers List</h4>
                                     <button class="btn btn-primary">Add Plinger</button>
                                 </div>
                             </div>
@@ -43,7 +59,7 @@
                                         </thead>
                                         <tbody>
                                             {% for plinger in plingers %}
-                                            <tr class="client-row" onclick="showClientDetails({{ plinger.id }})">
+                                            <tr class="client-row" onclick="showClientDetails(this, {{ plinger.id }})">
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <img src="{% static 'assets/images/logo/logo-icon.png' %}" alt="" class="img-fluid rounded" style="width: 50px; height: 50px;">
@@ -55,13 +71,13 @@
                                                 </td>
                                                 <td>
                                                     <div>{{ plinger.plingme_when|join:", " }}</div>
-                                                    <div>Frecuencia | {{ plinger.plingme_freq_display }}</div>
+                                                    <div>Frequency | {{ plinger.plingme_freq_display }}</div>
                                                 </td>
                                                 <td><span class="badge bg-success">Active</span></td>
                                             </tr>
                                             {% empty %}
                                             <tr>
-                                                <td colspan="3" class="text-center">No hay plingers disponibles para tu empresa.</td>
+                                                <td colspan="3" class="text-center">No plingers available for your company.</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -75,11 +91,11 @@
                     <div class="col-xxl-4 col-xl-4 box-col-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4 id="client-name">Detalles del Plinger</h4>
+                                <h4 id="client-name">Plinger Details</h4>
                             </div>
                             <div class="card-body">
                                 <div class="client-details">
-                                    <h5 class="mb-3">Información</h5>
+                                    <h5 class="mb-3">Information</h5>
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <i class="fa fa-envelope"></i> Email:
@@ -88,23 +104,23 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <i class="fa fa-phone"></i> Teléfono:
+                                            <i class="fa fa-phone"></i> Phone:
                                         </div>
                                         <div class="col-9" id="client-phone">-</div>
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-3">
-                                            <i class="fa fa-map-marker"></i> Método:
+                                            <i class="fa fa-map-marker"></i>Method:
                                         </div>
                                         <div class="col-9" id="client-method">-</div>
                                     </div>
-                                    <h5 class="mb-3">Preferencias de Contacto</h5>
+                                    <h5 class="mb-3">Contact Frequency</h5>
                                     <div class="row mb-2">
-                                        <div class="col-5">Contacto por:</div>
+                                        <div class="col-5">Contact by:</div>
                                         <div class="col-7" id="client-contact-method">-</div>
                                     </div>
                                     <div class="row mb-2">
-                                        <div class="col-5">Frecuencia:</div>
+                                        <div class="col-5">Frequency:</div>
                                         <div class="col-7" id="client-frequency">-</div>
                                     </div>
                                     <div class="row mb-2">
@@ -130,19 +146,35 @@
 
 <!-- Script para mostrar detalles dinámicamente -->
 <script>
-    function showClientDetails(clientId) {
-        let selectedPlinger = plingersData.find(p => p.id === clientId);
+    function showClientDetails(row, clientId) {
+        // Remover la clase "active" de todas las filas
+        document.querySelectorAll('.client-row').forEach(function(r) {
+            r.classList.remove('active');
+        });
 
+        // Agregar la clase "active" a la fila clicada
+        row.classList.add('active');
+
+        // Mostrar detalles del plinger
+        let selectedPlinger = plingersData.find(p => p.id === clientId);
         if (selectedPlinger) {
             document.getElementById('client-name').textContent = selectedPlinger.name;
-            document.getElementById('client-email').textContent = selectedPlinger.email || 'No disponible';
-            document.getElementById('client-phone').textContent = selectedPlinger.phone || 'No disponible';
-            document.getElementById('client-method').textContent = selectedPlinger.plingme_by.length > 0 ? selectedPlinger.plingme_by.join(", ") : 'No disponible';
-            document.getElementById('client-contact-method').textContent = selectedPlinger.plingme_when.length > 0 ? selectedPlinger.plingme_when.join(", ") : 'No disponible';
-            document.getElementById('client-frequency').textContent = selectedPlinger.plingme_freq_display || 'No disponible';
+            document.getElementById('client-email').textContent = selectedPlinger.email || 'Not available';
+            document.getElementById('client-phone').textContent = selectedPlinger.phone || 'Not available';
+            document.getElementById('client-method').textContent = selectedPlinger.plingme_by.length > 0 ? selectedPlinger.plingme_by.join(", ") : 'Not available';
+            document.getElementById('client-contact-method').textContent = selectedPlinger.plingme_when.length > 0 ? selectedPlinger.plingme_when.join(", ") : 'Not available';
+            document.getElementById('client-frequency').textContent = selectedPlinger.plingme_freq_display || 'Not available';
             document.getElementById('client-id').textContent = `Plinger-${selectedPlinger.id}`;
         }
     }
+
+    // Cargar automáticamente los detalles del primer plinger cuando se carga la página
+    document.addEventListener('DOMContentLoaded', function() {
+        if (plingersData && plingersData.length > 0) {
+            showClientDetails(document.querySelector('.client-row'), plingersData[0].id);
+        }
+    });
 </script>
+
 
 {% endblock %}

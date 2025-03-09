@@ -7,21 +7,21 @@ class Plinger(models.Model):
         ('sms', 'SMS'),
         ('email', 'Email'),
         ('telegram', 'Telegram'),
-        ('call', 'Llamada Telefónica'),
+        ('call', 'Phone Call'),
     ]
 
     CONTACT_CASES = [
-        ('promos', 'Promociones'),
-        ('new_products', 'Nuevos Productos'),
-        ('news', 'Noticias Generales'),
-        ('support', 'Soporte Técnico'),
+        ('promos', 'Promos'),
+        ('new_products', 'New Products'),
+        ('news', 'General Notifications'),
+        ('support', 'Support'),
     ]
 
     CONTACT_FREQUENCY = [
-        ('once', 'Solo una vez'),
-        ('weekly', 'Semanal'),
-        ('monthly', 'Mensual'),
-        ('custom', 'Personalizado'),
+        ('once', 'Only Once'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Montly'),
+        ('custom', 'Custom'),
     ]
 
     company = models.ForeignKey('company.Company', on_delete=models.CASCADE, related_name='plingers')
