@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <!-- Container-fluid starts-->
+          <!-- Container-fluid starts-->//////////////////
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
@@ -59,7 +59,7 @@
                     <h4>Create Your Embeddable Form</h4>
                   </div>
                   <div class="card-body">
-                    <!-- Formulario -->
+                    <!-- Formulario que envía la configuración -->
                     <form method="post" action="{% url 'create_formulario' %}">
                       {% csrf_token %}
                       <div class="row g-xl-5 g-3">
@@ -67,7 +67,7 @@
                         <div class="col-xxl-3 col-xl-4 box-col-4e sidebar-left-wrapper">
                           <ul class="sidebar-left-icons nav nav-pills" id="add-product-pills-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link {% if not embed_code %}active{% endif %}" id="name-tab" data-bs-toggle="pill" href="#name-form" role="tab" aria-controls="name-form" aria-selected="{% if not embed_code %}true{% else %}false{% endif %}">
+                              <a class="nav-link active" id="name-tab" data-bs-toggle="pill" href="#name-form" role="tab" aria-controls="name-form" aria-selected="true">
                                 <div class="nav-rounded">
                                   <div class="product-icons">
                                     <svg class="stroke-icon">
@@ -142,7 +142,7 @@
                               </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link {% if embed_code %}active{% endif %}" id="code-tab" data-bs-toggle="pill" href="#code" role="tab" aria-controls="code" aria-selected="{% if embed_code %}true{% else %}false{% endif %}">
+                              <a class="nav-link" id="code-tab" data-bs-toggle="pill" href="#code" role="tab" aria-controls="code" aria-selected="false">
                                 <div class="nav-rounded">
                                   <div class="product-icons">
                                     <svg class="stroke-icon">
@@ -162,7 +162,7 @@
                         <div class="col-xxl-9 col-xl-8 box-col-8 position-relative">
                           <div class="tab-content" id="add-product-pills-tabContent">
                             <!-- Tab: Name -->
-                            <div class="tab-pane fade {% if not embed_code %}show active{% endif %}" id="name-form" role="tabpanel" aria-labelledby="name-tab">
+                            <div class="tab-pane fade show active" id="name-form" role="tabpanel" aria-labelledby="name-tab">
                               <div class="sidebar-body">
                                 <div class="mb-3">
                                   <label class="form-label" for="formName">Form Name <span class="txt-danger">*</span></label>
@@ -290,6 +290,7 @@
                                     <input name="contact_preference" class="form-check-input" type="checkbox" value="new_products" id="newProductsCheck">
                                     <label class="form-check-label" for="newProductsCheck">New products launched</label>
                                   </div>
+                                  <!-- Puedes agregar más opciones si lo requieres -->
                                 </div>
                                 <div class="product-buttons mt-3">
                                   <button type="button" class="btn btn-light" data-bs-toggle="pill" data-bs-target="#contact-info">
@@ -341,28 +342,13 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- Tab: Get Code -->
-                            <div class="tab-pane fade {% if embed_code %}show active{% endif %}" id="code" role="tabpanel" aria-labelledby="code-tab">
+                            <!-- Tab: Get Code / Submit -->
+                            <div class="tab-pane fade" id="code" role="tabpanel" aria-labelledby="code-tab">
                               <div class="sidebar-body">
-                                {% if embed_code %}
-                                  <div class="alert alert-success">
-                                    <h5>Form Created Successfully!</h5>
-                                    <p>Your form is ready to be embedded. Copy the code below:</p>
-                                  </div>
-                                  <div class="card">
-                                    <div class="card-header">
-                                      <h5 class="mb-0">Embed Code</h5>
-                                    </div>
-                                    <div class="card-body">
-                                      <pre class="language-html p-3 bg-light">{{ embed_code|escape }}</pre>
-                                    </div>
-                                  </div>
-                                {% else %}
-                                  <div class="alert alert-info">
-                                    <h5>Complete the Form</h5>
-                                    <p>Fill out all the steps and click Finish to generate the embed code.</p>
-                                  </div>
-                                {% endif %}
+                                <div class="alert alert-success">
+                                  <h5>Form Created Successfully!</h5>
+                                  <p>Your form is ready to be embedded. Click Finish to save.</p>
+                                </div>
                                 <div class="product-buttons mt-3">
                                   <button type="button" class="btn btn-light" data-bs-toggle="pill" data-bs-target="#frequency">
                                     <svg>
@@ -370,16 +356,14 @@
                                     </svg>
                                     Previous
                                   </button>
-                                  {% if not embed_code %}
-                                    <button type="submit" class="btn btn-success">
-                                      <div class="d-flex align-items-center gap-sm-2 gap-1">
-                                        <svg class="stroke-icon">
-                                          <use href="{% static 'assets/svg/icon-sprite.svg' %}#check"></use>
-                                        </svg>
-                                        Finish
-                                      </div>
-                                    </button>
-                                  {% endif %}
+                                  <button type="submit" class="btn btn-success">
+                                    <div class="d-flex align-items-center gap-sm-2 gap-1">
+                                      <svg class="stroke-icon">
+                                        <use href="{% static 'assets/svg/icon-sprite.svg' %}#check"></use>
+                                      </svg>
+                                      Finish
+                                    </div>
+                                  </button>
                                 </div>
                               </div>
                             </div>
