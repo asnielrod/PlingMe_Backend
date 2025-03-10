@@ -52,7 +52,7 @@
                             <svg class="fill-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-home"></use>
                             </svg>
-                            <span>Dashboard</span>
+                            <span>Dashboard </span>
                         </a>
                     </li>
 
@@ -64,7 +64,7 @@
                             <svg class="fill-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-user"></use>
                             </svg>
-                            <span>Plingers</span>
+                            <span>Plingers </span>
                         </a>
                     </li>
 
@@ -76,33 +76,46 @@
                             <svg class="fill-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-chat"></use>
                             </svg>
-                            <span>Pings</span>
+                            <span>Pings </span>
                         </a>
                     </li>
 
                     <li class="sidebar-list">
-                        <a class="sidebar-title link-nav" href="file-manager.html">
+                        <a class="sidebar-title link-nav" href="{% url 'forms' %}">
                             <svg class="stroke-icon">
-                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-widget"></use>
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-form"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-widget"></use>
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-from"></use>
                             </svg>
-                            <span>Plugins</span>
+                            <span>Forms </span>
                         </a>
                     </li>
 
                     <li class="sidebar-list">
-                        <a class="sidebar-title link-nav" href="file-manager.html">
+                        <a class="sidebar-title link-nav" href="#">
                             <svg class="stroke-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-animation"></use>
                             </svg>
                             <svg class="fill-icon">
                                 <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-animation"></use>
                             </svg>
-                            <span>Ping Campaigns</span>
+                            <span>Campaigns </span>
                         </a>
                     </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-title link-nav" href="#">
+                            <svg class="stroke-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#stroke-widget"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use xlink:href="{% static 'assets/svg/icon-sprite.svg' %}#fill-widget"></use>
+                            </svg>
+                            <span>Plugins </span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
 

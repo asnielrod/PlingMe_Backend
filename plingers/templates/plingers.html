@@ -44,7 +44,9 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4>Plingers List</h4>
-                                    <button class="btn btn-primary">Add Plinger</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPlingerModal">
+                                        Add Plinger
+                                    </button>                                    
                                 </div>
                             </div>
                             <div class="card-body">
@@ -135,7 +137,70 @@
             </div> <!-- Fin container-fluid -->
         </div> <!-- Fin page-body -->
 
-        {% include 'includes/footer.html' %}  <!-- Footer -->
+        <!-- Modal para añadir un nuevo Plinger -->
+        <div class="modal fade" id="addPlingerModal" tabindex="-1" aria-labelledby="addPlingerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPlingerModalLabel">Add New Plinger</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addPlingerForm">
+                            <div class="mb-3">
+                                <label for="plingName" class="form-label">Plinger Name</label>
+                                <input type="text" class="form-control" id="plingName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="plingEmail" name="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingPhone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="plingPhone" name="phone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingMethod" class="form-label">PlingMe By</label>
+                                <select class="form-select" id="plingMethod" name="plingme_by" multiple>
+                                    <option value="whatsapp">WhatsApp</option>
+                                    <option value="sms">SMS</option>
+                                    <option value="email">Email</option>
+                                    <option value="telegram">Telegram</option>
+                                    <option value="call">Phone Call</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingWhen" class="form-label">PlingMe When</label>
+                                <select class="form-select" id="plingWhen" name="plingme_when" multiple>
+                                    <option value="promos">Promos</option>
+                                    <option value="new_products">New Products</option>
+                                    <option value="news">General Notifications</option>
+                                    <option value="support">Support</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingFrequency" class="form-label">Frequency</label>
+                                <select class="form-select" id="plingFrequency" name="plingme_freq">
+                                    <option value="once">Only Once</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plingNotes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="plingNotes" name="notes"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Plinger</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {% include 'includes/footer.html' %}
+        <!-- Fin Footer -->
     </div> <!-- Fin page-body-wrapper -->
 </div> <!-- Fin page-wrapper -->
 
@@ -175,6 +240,43 @@
         }
     });
 </script>
+
+<script>
+    document.getElementById("addPlingerForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar recargar la página
+
+        let formData = new FormData(this);
+        let jsonData = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            plingme_by: Array.from(document.getElementById("plingMethod").selectedOptions).map(opt => opt.value),
+            plingme_when: Array.from(document.getElementById("plingWhen").selectedOptions).map(opt => opt.value),
+            plingme_freq: formData.get("plingme_freq"),
+            notes: formData.get("notes"),
+        };
+
+        fetch("{% url 'add_plinger' %}", {  // Asegúrate de que esta URL esté bien configurada en urls.py
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Plinger added successfully!");
+                location.reload(); // Recargar la página para actualizar la tabla
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+</script>
+
 
 
 {% endblock %}

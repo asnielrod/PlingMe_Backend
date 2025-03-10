@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'company',
     'plingers',
     'pings',
+    'forms',
 ]
 
 MIDDLEWARE = [
