@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
   
-  // URL para obtener la configuración del formulario - usando el endpoint correcto
+  // URL para Obtener la configuración del formulario 
   const configUrl = `http://127.0.0.1:8000/api/forms/${formId}/`;
   console.log("URL de configuración:", configUrl);
   
@@ -51,55 +51,73 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     console.log("Campo de name agregado.");
 
-    // 2. Campo EMAIL - solo si está en la configuración
-    if (config.contact_info && config.contact_info.email) {
+    // Métodos de contacto seleccionados (los necesitamos antes para decidir qué campos son requeridos)
+    const selectedContactMethods = config.contact_methods || [];
+    
+    // 2. Campo EMAIL - solo si está en la configuración Y es requerido O si el método de contacto es email
+    const emailRequired = selectedContactMethods.includes('email');
+    
+    if (config.contact_info && config.contact_info.email && 
+        (config.contact_info.email.required || emailRequired)) {
+      const emailPlaceholderValue = config.contact_info.email.placeholder || "Your email address";
+      // Determinar si es requerido basado en los métodos de contacto
+      const isRequired = config.contact_info.email.required || emailRequired;
+      
       formHTML += `
         <div class="form-field">
-          <label for="embed-email">${config.contact_info.email.placeholder || "Your Email"}</label>
+          <label for="embed-email">${emailPlaceholderValue}</label>
           <input 
             type="email" 
             id="embed-email" 
             name="email" 
-            ${config.contact_info.email.required ? "required" : ""}
+            ${isRequired ? "required" : ""}
           />
         </div>`;
-      console.log("Campo de email agregado.");
+      console.log("Campo de email agregado, requerido:", isRequired);
     } else {
-      console.warn("No se encontró configuración para email.");
+      console.log("No se agregó el campo de email.");
     }
     
-    // 3. Campo PHONE - solo si está en la configuración
-    if (config.contact_info && config.contact_info.phone) {
+    // 3. Campo PHONE - solo si está en la configuración Y es requerido O si el método de contacto requiere teléfono
+    const phoneRequiredMethods = ['sms', 'whatsapp', 'telegram']; // Métodos que requieren teléfono
+    const phoneRequired = selectedContactMethods.some(method => phoneRequiredMethods.includes(method));
+
+    if (config.contact_info && config.contact_info.phone && 
+        (config.contact_info.phone.required || phoneRequired)) {
+      const phonePlaceholderValue = config.contact_info.phone.placeholder || "Your phone number";
+      // Determinar si es requerido basado en los métodos de contacto
+      const isRequired = config.contact_info.phone.required || phoneRequired;
+      
       formHTML += `
         <div class="form-field">
-          <label for="embed-phone">${config.contact_info.phone.placeholder || "Your Phone Number"}</label>
+          <label for="embed-phone">${phonePlaceholderValue}</label>
           <input 
             type="tel" 
             id="embed-phone" 
             name="phone" 
-            ${config.contact_info.phone.required ? "required" : ""}
+            ${isRequired ? "required" : ""}
           />
         </div>`;
-      console.log("Campo de teléfono agregado.");
+      console.log("Campo de teléfono agregado, requerido:", isRequired);
     } else {
-      console.warn("No se encontró configuración para teléfono.");
+      console.log("No se agregó el campo de teléfono.");
     }
     
     // 4. Métodos de contacto seleccionados - como opciones
-    if (config.contact_methods && config.contact_methods.length > 0) {
+    if (selectedContactMethods.length > 0) {
       formHTML += `
         <div class="form-field contact-methods">
           <label>Preferred Contact Method</label>
           <div class="option-group">`;
       
-      config.contact_methods.forEach(method => {
-        const methodLabels = {
-          'email': 'Email',
-          'sms': 'SMS',
-          'telegram': 'Telegram',
-          'whatsapp': 'WhatsApp'
-        };
-        
+      const methodLabels = {
+        'email': 'Email',
+        'sms': 'SMS',
+        'telegram': 'Telegram',
+        'whatsapp': 'WhatsApp'
+      };
+      
+      selectedContactMethods.forEach(method => {
         formHTML += `
           <div class="option-item">
             <input type="radio" id="method-${method}" name="contact_method" value="${method}">

@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 
 class Form(models.Model):
-    # Usamos un UUID para tener un identificador único que se usará en el embed
+    # aqui use un UUID para tener un identificador para el embed
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, help_text="Nombre del formulario")
     description = models.TextField(blank=True, null=True, help_text="Descripción o notas adicionales")
