@@ -1,61 +1,147 @@
-/* Estilos para el widget embebido de PlingMe */
+/* PlingMe Form Widget CSS */
+.plingme-form {
+  max-width: 350px; /* Reducido de 400px a 350px */
+  margin: 0 auto;
+  padding: 15px; /* Reducido de 20px a 15px */
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box; /* Asegura que el padding no aumente el ancho */
+}
 
+.plingme-form .form-field {
+  margin-bottom: 15px; /* Reducido de 20px a 15px */
+  box-sizing: border-box; /* Asegura que el margin no afecte el cálculo */
+}
+
+.plingme-form label {
+  display: block;
+  margin-bottom: 5px; /* Reducido de 6px a 5px */
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.plingme-form input[type="text"],
+.plingme-form input[type="email"],
+.plingme-form input[type="tel"] {
+  width: 100%;
+  padding: 8px 10px; /* Reducido de 10px 12px a 8px 10px */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box; /* Crucial: asegura que el padding no añada al ancho */
+}
+
+.plingme-form input[type="text"]:focus,
+.plingme-form input[type="email"]:focus,
+.plingme-form input[type="tel"]:focus {
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+  outline: none;
+}
+
+.plingme-form .option-group {
+  margin-top: 6px; /* Reducido de 8px a 6px */
+}
+
+.plingme-form .option-item {
+  margin-bottom: 6px; /* Reducido de 8px a 6px */
+  display: flex;
+  align-items: center;
+}
+
+.plingme-form .option-item input[type="checkbox"],
+.plingme-form .option-item input[type="radio"] {
+  margin-right: 6px; /* Reducido de 8px a 6px */
+}
+
+.plingme-form .option-item label {
+  display: inline;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 13px; /* Reducido ligeramente */
+}
+
+.plingme-form .submit-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 14px; /* Reducido de 12px 16px a 10px 14px */
+  font-size: 15px; /* Reducido de 16px a 15px */
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.plingme-form .submit-btn:hover {
+  background-color: #3a5dda;
+}
+
+/* Success and Error messages */
+.plingme-form .success-message,
+.plingme-form .error-message {
+  text-align: center;
+  padding: 15px; /* Reducido de 20px a 15px */
+}
+
+.plingme-form .success-message h3 {
+  color: #28a745;
+  margin-bottom: 8px; /* Reducido de 10px a 8px */
+  font-size: 16px;
+}
+
+.plingme-form .error-message h3 {
+  color: #dc3545;
+  margin-bottom: 8px; /* Reducido de 10px a 8px */
+  font-size: 16px;
+}
+
+.plingme-form .error-message button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 14px; /* Reducido de 8px 16px a 7px 14px */
+  margin-top: 10px; /* Reducido de 12px a 10px */
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.plingme-form .contact-methods,
+.plingme-form .contact-preferences,
+.plingme-form .contact-frequency {
+  border-top: 1px solid #eee;
+  padding-top: 12px; /* Reducido de 16px a 12px */
+}
+
+/* Añadido para controlar mejor el ancho de los contenedores */
 #plingme-form-widget {
-    font-family: Arial, sans-serif;
-    max-width: 400px;
-    margin: 20px auto;
-    border: 1px solid #ddd;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-#plingme-form-widget form {
-    display: flex;
-    flex-direction: column;
-}
-
-#plingme-form-widget form div {
-    margin-bottom: 15px;
-}
-
-#plingme-form-widget label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-#plingme-form-widget input[type="text"],
-#plingme-form-widget input[type="email"],
-#plingme-form-widget input[type="tel"],
-#plingme-form-widget input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-}
-
-#plingme-form-widget button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#plingme-form-widget button:hover {
-    background-color: #0056b3;
-}
-
-#plingme-form-widget p {
-    text-align: center;
-    font-size: 16px;
-    color: #333;
+/* Estilos responsivos */
+@media (max-width: 400px) {
+  .plingme-form {
+    padding: 12px;
+    font-size: 13px;
+  }
+  
+  .plingme-form input[type="text"],
+  .plingme-form input[type="email"],
+  .plingme-form input[type="tel"] {
+    padding: 7px 8px;
+  }
+  
+  .plingme-form .submit-btn {
+    padding: 8px 12px;
+  }
 }

@@ -56,9 +56,9 @@ class FormularioCreateView(LoginRequiredMixin, View):
         
         # Generar el embed code usando el ID del formulario
         embed_code = f"""<!-- PlingMe Form Widget -->
-<link rel="stylesheet" href="http://127.0.0.1:8000/assets/css/form-widget.css">
+<link rel="stylesheet" href="http://127.0.0.1:8000/static/assets/css/form-widget.css">
 <div id="plingme-form-widget" data-form-id="{formulario.id}"></div>
-<script src="http://127.0.0.1:8000/assets/js/form-widget.js"></script>"""
+<script src="http://127.0.0.1:8000/static/assets/js/form-widget.js"></script>"""
 
         # Renderizamos el mismo template con el embed code
         return render(request, 'forms.html', {'embed_code': embed_code})

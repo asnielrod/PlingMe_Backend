@@ -158,8 +158,8 @@
                             </li>
                           </ul>
                         </div>
-                        <!-- Contenido de cada tab -->
-                        <div class="col-xxl-9 col-xl-8 box-col-8 position-relative">
+                        <!-- Contenido de cada tab - Reducido para hacer espacio al preview -->
+                        <div class="col-xxl-4 col-xl-8 box-col-8 position-relative">
                           <div class="tab-content" id="add-product-pills-tabContent">
                             <!-- Tab: Name -->
                             <div class="tab-pane fade {% if not embed_code %}show active{% endif %}" id="name-form" role="tabpanel" aria-labelledby="name-tab">
@@ -385,6 +385,28 @@
                             </div>
                           </div> <!-- Fin tab-content -->
                         </div> <!-- Fin col contenido -->
+                        
+                        <!-- NUEVA COLUMNA: Form Preview -->
+                        <div class="col-xxl-5 col-xl-12 col-lg-12 col-md-12 mt-xl-0 mt-4">
+                          <div class="card h-100">
+                            <div class="card-header">
+                              <h4>Form Preview</h4>
+                              <p class="text-muted">See how your form will look to subscribers</p>
+                            </div>
+                            <div class="card-body p-0">
+                              <div id="form-preview-container" class="h-100">
+                                <!-- Preview will be rendered here by JavaScript -->
+                                <div class="preview-empty-state">
+                                  <i class="fa fa-eye"></i>
+                                  <h5>Form Preview</h5>
+                                  <p>Fill in your form details to see a live preview here</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- FIN NUEVA COLUMNA -->
+                        
                       </div> <!-- Fin row -->
                     </form>
                     <!-- Fin formulario -->
@@ -399,6 +421,10 @@
       {% include 'includes/footer.html' %}
     </div>
   </div>
+
+  <!-- Add these script and style tags before the closing </body> tag -->
+  <link rel="stylesheet" href="{% static 'assets/css/form-preview.css' %}">
+  <script src="{% static 'assets/js/form-preview.js' %}"></script>
+  <script src="{% static 'assets/js/fix-tabs.js' %}"></script>
 </body>
-</html>
 {% endblock %}

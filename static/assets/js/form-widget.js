@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
   
-  // URL para obtener la configuración del formulario
+  // URL para obtener la configuración del formulario - usando el endpoint correcto
   const configUrl = `http://127.0.0.1:8000/api/forms/${formId}/`;
   console.log("URL de configuración:", configUrl);
   
@@ -35,14 +35,11 @@ document.addEventListener("DOMContentLoaded", function() {
   function renderForm(data) {
     console.log("Iniciando renderForm con data:", data);
     const config = data.configuration;
-    let formHTML = `<form id="plingme-embed-form">`;
+    let formHTML = `<form id="plingme-embed-form" class="plingme-form">`;
 
-    // 1. Agregamos el campo NAME
-    // Si quieres basarte en config.contact_info.name, puedes verificarlo:
-    // if (config.contact_info && config.contact_info.name) { ... } 
-    // En este ejemplo, lo forzamos para que siempre aparezca:
+    // 1. Agregamos el campo NAME - siempre necesario
     formHTML += `
-      <div>
+      <div class="form-field">
         <label for="embed-name">Your Name</label>
         <input 
           type="text" 
@@ -54,11 +51,11 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     console.log("Campo de name agregado.");
 
-    // 2. Campo EMAIL
+    // 2. Campo EMAIL - solo si está en la configuración
     if (config.contact_info && config.contact_info.email) {
       formHTML += `
-        <div>
-          <label for="embed-email">${config.contact_info.email.placeholder}</label>
+        <div class="form-field">
+          <label for="embed-email">${config.contact_info.email.placeholder || "Your Email"}</label>
           <input 
             type="email" 
             id="embed-email" 
@@ -71,11 +68,11 @@ document.addEventListener("DOMContentLoaded", function() {
       console.warn("No se encontró configuración para email.");
     }
     
-    // 3. Campo PHONE
+    // 3. Campo PHONE - solo si está en la configuración
     if (config.contact_info && config.contact_info.phone) {
       formHTML += `
-        <div>
-          <label for="embed-phone">${config.contact_info.phone.placeholder}</label>
+        <div class="form-field">
+          <label for="embed-phone">${config.contact_info.phone.placeholder || "Your Phone Number"}</label>
           <input 
             type="tel" 
             id="embed-phone" 
@@ -88,9 +85,92 @@ document.addEventListener("DOMContentLoaded", function() {
       console.warn("No se encontró configuración para teléfono.");
     }
     
-    // 4. Botón de Enviar
+    // 4. Métodos de contacto seleccionados - como opciones
+    if (config.contact_methods && config.contact_methods.length > 0) {
+      formHTML += `
+        <div class="form-field contact-methods">
+          <label>Preferred Contact Method</label>
+          <div class="option-group">`;
+      
+      config.contact_methods.forEach(method => {
+        const methodLabels = {
+          'email': 'Email',
+          'sms': 'SMS',
+          'telegram': 'Telegram',
+          'whatsapp': 'WhatsApp'
+        };
+        
+        formHTML += `
+          <div class="option-item">
+            <input type="radio" id="method-${method}" name="contact_method" value="${method}">
+            <label for="method-${method}">${methodLabels[method] || method}</label>
+          </div>`;
+      });
+      
+      formHTML += `
+          </div>
+        </div>`;
+      console.log("Métodos de contacto agregados.");
+    }
+
+    // 5. Preferencias de contacto - como checkboxes
+    if (config.contact_preference && config.contact_preference.length > 0) {
+      formHTML += `
+        <div class="form-field contact-preferences">
+          <label>Contact me when:</label>
+          <div class="option-group">`;
+      
+      const preferenceLabels = {
+        'promos': 'Promotions and discounts available',
+        'new_products': 'New products launched'
+      };
+      
+      config.contact_preference.forEach(pref => {
+        formHTML += `
+          <div class="option-item">
+            <input type="checkbox" id="pref-${pref}" name="contact_preference" value="${pref}">
+            <label for="pref-${pref}">${preferenceLabels[pref] || pref}</label>
+          </div>`;
+      });
+      
+      formHTML += `
+          </div>
+        </div>`;
+      console.log("Preferencias de contacto agregadas.");
+    }
+    
+    // 6. Frecuencia de contacto - como radio buttons
+    if (config.frequency && config.frequency.length > 0) {
+      formHTML += `
+        <div class="form-field contact-frequency">
+          <label>Contact frequency:</label>
+          <div class="option-group">`;
+      
+      const frequencyLabels = {
+        'once': 'Only once',
+        'weekly': 'Weekly',
+        'monthly': 'Monthly'
+      };
+      
+      config.frequency.forEach(freq => {
+        formHTML += `
+          <div class="option-item">
+            <input type="radio" id="freq-${freq}" name="frequency" value="${freq}" ${freq === 'once' ? 'checked' : ''}>
+            <label for="freq-${freq}">${frequencyLabels[freq] || freq}</label>
+          </div>`;
+      });
+      
+      formHTML += `
+          </div>
+        </div>`;
+      console.log("Opciones de frecuencia agregadas.");
+    }
+    
+    // 7. Botón de Enviar
     formHTML += `
-      <button type="submit">Subscribe</button>
+      <div class="form-field">
+        <button type="submit" class="submit-btn">Subscribe</button>
+      </div>
     </form>`;
     
     widgetDiv.innerHTML = formHTML;
@@ -111,7 +191,19 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const formElement = e.target;
     const formData = new FormData(formElement);
-    const payload = Object.fromEntries(formData.entries());
+    
+    // Procesar multiple checkboxes, que comparten el mismo name
+    const contactPreferences = [];
+    formElement.querySelectorAll('input[name="contact_preference"]:checked').forEach(checkbox => {
+      contactPreferences.push(checkbox.value);
+    });
+    
+    // Crear objeto con todos los datos
+    const payload = {
+      ...Object.fromEntries(formData.entries()),
+      contact_preference: contactPreferences
+    };
+    
     console.log("Payload generado a partir del formulario:", payload);
     
     // URL para crear un Plinger (endpoint de la API)
@@ -122,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Si se usa autenticación, agregar la cabecera Authorization aquí.
       },
       body: JSON.stringify(payload)
     })
@@ -135,11 +226,20 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(result => {
       console.log("Plinger creado exitosamente:", result);
-      widgetDiv.innerHTML = "<p>Thank you for subscribing!</p>";
+      widgetDiv.innerHTML = `
+        <div class="success-message">
+          <h3>Thank you for subscribing!</h3>
+          <p>We'll be in touch soon.</p>
+        </div>`;
     })
     .catch(error => {
       console.error("Error al enviar el formulario:", error);
-      widgetDiv.innerHTML = "<p>There was an error submitting the form.</p>";
+      widgetDiv.innerHTML = `
+        <div class="error-message">
+          <h3>Error</h3>
+          <p>There was an error submitting the form. Please try again later.</p>
+          <button onclick="location.reload()">Try Again</button>
+        </div>`;
     });
   }
 });

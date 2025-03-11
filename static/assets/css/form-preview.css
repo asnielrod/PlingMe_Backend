@@ -1,0 +1,122 @@
+/* Form Preview Styling */
+#form-preview-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+  }
+  
+  .preview-empty-state {
+    text-align: center;
+    color: #6c757d;
+  }
+  
+  .preview-empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+  }
+  
+  .preview-form-container {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .preview-form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .preview-form-field {
+    margin-bottom: 15px;
+  }
+  
+  .preview-form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .preview-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .preview-options {
+    margin-top: 5px;
+  }
+  
+  .preview-option {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .preview-option input[type="radio"],
+  .preview-option input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .preview-submit-btn {
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+  }
+  
+  .preview-submit-btn:hover {
+    background-color: #3a5dda;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .preview-form-container {
+      padding: 15px;
+    }
+  }
+  
+  /* Preview panel height */
+  .preview-panel {
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preview-panel-header {
+    padding: 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  
+  .preview-panel-body {
+    flex: 1;
+    overflow: auto;
+    padding: 0;
+  }

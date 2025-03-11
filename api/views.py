@@ -8,6 +8,8 @@ from forms.models import Form
 from rest_framework.permissions import AllowAny
 from django.views.decorators.csrf import csrf_exempt
 from company.models import CompanyMember, Company
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 
 
@@ -42,12 +44,15 @@ def createPlingerAPI(request):
 
 
 
-@api_view(['GET'])
 def getFormConfiguration(request, form_id):
     try:
-        form = Form.objects.get(id=form_id)
-    except Form.DoesNotExist:
-        return Response({"error": "Form not found"}, status=404)
-    
-    serializer = FormSerializer(form)
-    return Response(serializer.data)
+        form = get_object_or_404(Form, pk=form_id)
+        # Convert UUID to string for JSON serialization
+        form_data = {
+            'id': str(form.id),
+            'name': form.name,
+            'configuration': form.configuration
+        }
+        return JsonResponse(form_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
