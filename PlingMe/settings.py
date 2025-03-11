@@ -44,9 +44,14 @@ INSTALLED_APPS = [
     'plingers',
     'pings',
     'forms',
+    'api',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Colocado al inicio
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'PlingMe.urls'
 
@@ -143,3 +149,20 @@ AUTH_USER_MODEL = 'accounts.UserProfile'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # Si no deseas usar sesión ni token para este proyecto, puedes dejarlo vacío.
+        # O bien, deja TokenAuthentication si hay otras vistas que lo necesitan.
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Permite acceso libre por defecto
+    ],
+}
+
+
+CORS_ALLOW_ALL_ORIGINS = True

@@ -1,0 +1,61 @@
+/* Estilos para el widget embebido de PlingMe */
+
+#plingme-form-widget {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#plingme-form-widget form {
+    display: flex;
+    flex-direction: column;
+}
+
+#plingme-form-widget form div {
+    margin-bottom: 15px;
+}
+
+#plingme-form-widget label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+#plingme-form-widget input[type="text"],
+#plingme-form-widget input[type="email"],
+#plingme-form-widget input[type="tel"],
+#plingme-form-widget input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+#plingme-form-widget button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#plingme-form-widget button:hover {
+    background-color: #0056b3;
+}
+
+#plingme-form-widget p {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+}

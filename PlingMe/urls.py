@@ -28,5 +28,6 @@ urlpatterns = [
     path('plingers/', include('plingers.urls')),
     path('pings/', include('pings.urls')),
     path('forms/', include('forms.urls')),
+    path('api/', include('api.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
