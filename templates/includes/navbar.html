@@ -110,21 +110,22 @@
                   <ul class="bookmark-dropdown">
                     <li>
                       <div class="row">
-                        <div class="col-4 text-center"><a href="form-validation.html">
-                            <div class="bookmark-content">
-                              <div class="bookmark-icon bg-light-primary"><i data-feather="file-text"></i></div><span>Forms</span>
-                            </div></a></div>
                         <div class="col-4 text-center"><a href="{% url 'user_profile' %}">
                             <div class="bookmark-content"> 
                               <div class="bookmark-icon bg-light-secondary"><i data-feather="user"></i></div><span>Profile</span>
                             </div></a></div>
-                        <div class="col-4 text-center"><a href="bootstrap-basic-table.html">
+                        <div class="col-4 text-center"><a href="{% url 'company_profile' %}">
                             <div class="bookmark-content">
-                              <div class="bookmark-icon bg-light-warning"> <i data-feather="server"> </i></div><span>Tables </span>
+                              <div class="bookmark-icon bg-light-warning"> <i data-feather="pocket"> </i></div><span>Company</span>
                             </div></a></div>
+                            <div class="col-4 text-center"><a href="{% url 'forms' %}">
+                              <div class="bookmark-content">
+                                <div class="bookmark-icon bg-light-primary"><i data-feather="file-text"></i></div><span>Forms</span>
+                              </div></a>
+                            </div>
                       </div>
                     </li>
-                    <li class="text-centermedia-body"> <a class="flip-btn f-w-700" id="flip-btn" href="javascript:void(0)">Add New Bookmark</a></li>
+                    {#<li class="text-centermedia-body"> <a class="flip-btn f-w-700" id="flip-btn" href="javascript:void(0)">Add New Bookmark</a></li>#}
                   </ul>
                 </div>
                 <div class="back">

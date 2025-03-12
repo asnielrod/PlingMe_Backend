@@ -216,11 +216,22 @@ document.addEventListener("DOMContentLoaded", function() {
       contactPreferences.push(checkbox.value);
     });
     
+    // Get selected contact method
+    const selectedContactMethod = formElement.querySelector('input[name="contact_method"]:checked');
+    const contactMethod = selectedContactMethod ? [selectedContactMethod.value] : [];
+    
     // Crear objeto con todos los datos
     const payload = {
       ...Object.fromEntries(formData.entries()),
-      contact_preference: contactPreferences
+      plingme_by: contactMethod,        
+      plingme_when: contactPreferences, 
+      plingme_freq: formData.get('frequency') || 'once'  
     };
+    
+    // Eliminar los campos que ya se han procesado de manera especial
+    delete payload.contact_method;
+    delete payload.contact_preference;
+    delete payload.frequency;
     
     console.log("Payload generado a partir del formulario:", payload);
     

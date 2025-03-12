@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block content %}
 
 <style>
@@ -14,6 +12,33 @@
     }
     .client-row.active {
         background-color: rgba(0, 123, 255, 0.2);
+    }
+    
+    /* Estilos para los botones de selección */
+    .channel-buttons, .topic-buttons {
+        margin-bottom: 10px;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .channel-btn, .topic-btn {
+        border-radius: 20px;
+        padding: 6px 15px;
+        margin-bottom: 5px;
+    }
+    
+    .btn-outline-primary.active, .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+    }
+    
+    .btn-outline-info.active, .btn-info {
+        background-color: #0dcaf0;
+        color: white;
     }
 </style>
 
@@ -54,8 +79,8 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Info</th>
-                                                <th>Request</th>
+                                                <th>Contact</th>
+                                                <th>Notification Preferences</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -72,8 +97,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div>{{ plinger.plingme_when|join:", " }}</div>
-                                                    <div>Frequency | {{ plinger.plingme_freq_display }}</div>
+                                                    <div>Topics: {{ plinger.plingme_when|join:", " }}</div>
+                                                    <div>Frequency: {{ plinger.plingme_freq_display }}</div>
                                                 </td>
                                                 <td><span class="badge bg-success">Active</span></td>
                                             </tr>
@@ -97,7 +122,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="client-details">
-                                    <h5 class="mb-3">Information</h5>
+                                    <h5 class="mb-3">Contact Information</h5>
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <i class="fa fa-envelope"></i> Email:
@@ -112,13 +137,13 @@
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-3">
-                                            <i class="fa fa-map-marker"></i>Method:
+                                            <i class="fa fa-comment"></i> Via:
                                         </div>
                                         <div class="col-9" id="client-method">-</div>
                                     </div>
-                                    <h5 class="mb-3">Contact Frequency</h5>
+                                    <h5 class="mb-3">Notification Preferences</h5>
                                     <div class="row mb-2">
-                                        <div class="col-5">Contact by:</div>
+                                        <div class="col-5">Topics:</div>
                                         <div class="col-7" id="client-contact-method">-</div>
                                     </div>
                                     <div class="row mb-2">
@@ -148,38 +173,51 @@
                     <div class="modal-body">
                         <form id="addPlingerForm">
                             <div class="mb-3">
-                                <label for="plingName" class="form-label">Plinger Name</label>
+                                <label for="plingName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="plingName" name="name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="plingEmail" class="form-label">Email</label>
+                                <label for="plingEmail" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" id="plingEmail" name="email">
                             </div>
                             <div class="mb-3">
-                                <label for="plingPhone" class="form-label">Phone</label>
+                                <label for="plingPhone" class="form-label">Phone Number</label>
                                 <input type="text" class="form-control" id="plingPhone" name="phone">
                             </div>
+                            
+                            <!-- Botones para Contact Channels en lugar del dropdown -->
                             <div class="mb-3">
-                                <label for="plingMethod" class="form-label">PlingMe By</label>
-                                <select class="form-select" id="plingMethod" name="plingme_by" multiple>
-                                    <option value="whatsapp">WhatsApp</option>
-                                    <option value="sms">SMS</option>
-                                    <option value="email">Email</option>
-                                    <option value="telegram">Telegram</option>
-                                    <option value="call">Phone Call</option>
-                                </select>
+                                <label class="form-label">Contact Channels</label>
+                                <div class="channel-buttons">
+                                    <div class="btn-group" role="group" aria-label="Contact channels">
+                                        <button type="button" class="btn btn-outline-primary channel-btn" data-value="whatsapp">WhatsApp</button>
+                                        <button type="button" class="btn btn-outline-primary channel-btn" data-value="sms">SMS</button>
+                                        <button type="button" class="btn btn-outline-primary channel-btn" data-value="email">Email</button>
+                                        <button type="button" class="btn btn-outline-primary channel-btn" data-value="telegram">Telegram</button>
+                                        <button type="button" class="btn btn-outline-primary channel-btn" data-value="call">Phone Call</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="selectedChannels" name="plingme_by">
+                                <small class="form-text text-muted">Click on one or more communication channels</small>
                             </div>
+                            
+                            <!-- Botones para Notification Topics en lugar del dropdown -->
                             <div class="mb-3">
-                                <label for="plingWhen" class="form-label">PlingMe When</label>
-                                <select class="form-select" id="plingWhen" name="plingme_when" multiple>
-                                    <option value="promos">Promos</option>
-                                    <option value="new_products">New Products</option>
-                                    <option value="news">General Notifications</option>
-                                    <option value="support">Support</option>
-                                </select>
+                                <label class="form-label">Notification Topics</label>
+                                <div class="topic-buttons">
+                                    <div class="btn-group" role="group" aria-label="Notification topics">
+                                        <button type="button" class="btn btn-outline-info topic-btn" data-value="promos">Promotions</button>
+                                        <button type="button" class="btn btn-outline-info topic-btn" data-value="new_products">New Products</button>
+                                        <button type="button" class="btn btn-outline-info topic-btn" data-value="news">General Notifications</button>
+                                        <button type="button" class="btn btn-outline-info topic-btn" data-value="support">Support</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="selectedTopics" name="plingme_when">
+                                <small class="form-text text-muted">Click on topics you want to notify this contact about</small>
                             </div>
+                            
                             <div class="mb-3">
-                                <label for="plingFrequency" class="form-label">Frequency</label>
+                                <label for="plingFrequency" class="form-label">Contact Frequency</label>
                                 <select class="form-select" id="plingFrequency" name="plingme_freq">
                                     <option value="once">Only Once</option>
                                     <option value="weekly">Weekly</option>
@@ -189,7 +227,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="plingNotes" class="form-label">Notes</label>
-                                <textarea class="form-control" id="plingNotes" name="notes"></textarea>
+                                <textarea class="form-control" id="plingNotes" name="notes" placeholder="Additional information about this contact"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Save Plinger</button>
                         </form>
@@ -241,7 +279,63 @@
     });
 </script>
 
+<!-- Script para manejar los botones de selección y el envío del formulario -->
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Channel buttons functionality
+        const channelButtons = document.querySelectorAll('.channel-btn');
+        const selectedChannelsInput = document.getElementById('selectedChannels');
+        let selectedChannels = [];
+
+        channelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                
+                if (this.classList.contains('active')) {
+                    // Deselect
+                    this.classList.remove('active', 'btn-primary');
+                    this.classList.add('btn-outline-primary');
+                    selectedChannels = selectedChannels.filter(channel => channel !== value);
+                } else {
+                    // Select
+                    this.classList.add('active', 'btn-primary');
+                    this.classList.remove('btn-outline-primary');
+                    selectedChannels.push(value);
+                }
+                
+                // Update hidden input
+                selectedChannelsInput.value = JSON.stringify(selectedChannels);
+            });
+        });
+
+        // Topic buttons functionality
+        const topicButtons = document.querySelectorAll('.topic-btn');
+        const selectedTopicsInput = document.getElementById('selectedTopics');
+        let selectedTopics = [];
+
+        topicButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                
+                if (this.classList.contains('active')) {
+                    // Deselect
+                    this.classList.remove('active', 'btn-info');
+                    this.classList.add('btn-outline-info');
+                    selectedTopics = selectedTopics.filter(topic => topic !== value);
+                } else {
+                    // Select
+                    this.classList.add('active', 'btn-info');
+                    this.classList.remove('btn-outline-info');
+                    selectedTopics.push(value);
+                }
+                
+                // Update hidden input
+                selectedTopicsInput.value = JSON.stringify(selectedTopics);
+            });
+        });
+    });
+
+    // Script para manejar el envío del formulario
     document.getElementById("addPlingerForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar recargar la página
 
@@ -250,13 +344,21 @@
             name: formData.get("name"),
             email: formData.get("email"),
             phone: formData.get("phone"),
-            plingme_by: Array.from(document.getElementById("plingMethod").selectedOptions).map(opt => opt.value),
-            plingme_when: Array.from(document.getElementById("plingWhen").selectedOptions).map(opt => opt.value),
             plingme_freq: formData.get("plingme_freq"),
             notes: formData.get("notes"),
         };
+        
+        // Parse the JSON stringified values
+        try {
+            jsonData.plingme_by = JSON.parse(formData.get("plingme_by") || '[]');
+            jsonData.plingme_when = JSON.parse(formData.get("plingme_when") || '[]');
+        } catch (e) {
+            console.error("Error parsing JSON:", e);
+            jsonData.plingme_by = [];
+            jsonData.plingme_when = [];
+        }
 
-        fetch("{% url 'add_plinger' %}", {  // Asegúrate de que esta URL esté bien configurada en urls.py
+        fetch("{% url 'add_plinger' %}", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -276,7 +378,5 @@
         .catch(error => console.error("Error:", error));
     });
 </script>
-
-
 
 {% endblock %}
